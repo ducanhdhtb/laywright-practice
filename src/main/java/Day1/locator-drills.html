@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Locator Drills</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background: #f8f9fa; color: #333; }
+        .container { max-width: 1100px; margin: 0 auto; background: white; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; }
+        h1 { text-align: center; color: #2563eb; margin-bottom: 30px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #dee2e6; padding: 15px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; width: 40%; font-weight: 600; }
+        td.target-zone { background: #fff; width: 60%; }
+
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
+        .bg-easy { background: #dcfce7; color: #166534; }
+        .bg-med { background: #fef9c3; color: #854d0e; }
+        .bg-hard { background: #fee2e2; color: #991b1b; }
+
+        /* Elements Styling */
+        input, button, select { padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { cursor: pointer; background: #e2e8f0; }
+        button:hover { background: #cbd5e1; }
+        .highlight { border: 2px solid #2563eb; }
+
+        /* Utility */
+        .hidden { display: none; }
+        .dynamic-area { padding: 10px; border: 1px dashed #999; background: #fafafa; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎯 BẢNG LUYỆN TẬP LOCATOR (30 TASKS)</h1>
+    <p><strong>Hướng dẫn:</strong> Hãy viết script Playwright để tìm và tương tác với các phần tử ở cột bên phải theo yêu cầu ở cột bên trái.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Yêu cầu (Task Description)</th>
+            <th>Phần tử mục tiêu (Target Elements)</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>
+                <span class="badge bg-easy">Basic</span><br>
+                <strong>Bài 1: ID</strong><br>
+                Tìm ô input có ID là <code>user_email_id</code> và điền email vào.
+            </td>
+            <td class="target-zone">
+                <input type="text" id="user_email_id" placeholder="Nhập email...">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-easy">Basic</span><br>
+                <strong>Bài 2: Name</strong><br>
+                Tìm ô input có attribute <code>name="password_field"</code>.
+            </td>
+            <td class="target-zone">
+                <input type="password" name="password_field" placeholder="Mật khẩu...">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-easy">Basic</span><br>
+                <strong>Bài 3: Class</strong><br>
+                Tìm nút bấm có class <code>btn-submit-action</code>.
+            </td>
+            <td class="target-zone">
+                <button class="btn-submit-action" onclick="alert('Clicked!')">Submit Form</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-easy">Basic</span><br>
+                <strong>Bài 4: Placeholder</strong><br>
+                Tìm ô input có placeholder là <code>Tìm kiếm sản phẩm...</code>.
+            </td>
+            <td class="target-zone">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 5: Text (Exact)</strong><br>
+                Click vào nút có chữ chính xác là "Mua Ngay".
+            </td>
+            <td class="target-zone">
+                <button>Mua Ngay</button>
+                <button>Mua Trả Góp</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 6: Text (Contains)</strong><br>
+                Tìm phần tử chứa đoạn text "...thông báo quan trọng...".
+            </td>
+            <td class="target-zone">
+                <div style="padding:10px; border:1px solid #ddd;">
+                    Đây là một thông báo quan trọng từ hệ thống.
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 7: Custom Attribute</strong><br>
+                Tìm phần tử theo <code>data-testid="promo-banner"</code>.
+            </td>
+            <td class="target-zone">
+                <div data-testid="promo-banner" style="background:#fff3cd; padding:5px;">Banner Quảng Cáo</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 8: Partial Attribute (CSS)</strong><br>
+                Tìm nút có ID chứa chữ <code>12345</code> (VD: <code>order-12345-btn</code>).
+            </td>
+            <td class="target-zone">
+                <button id="order-12345-btn">Chi tiết đơn hàng</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 9: Direct Child ( > )</strong><br>
+                Tìm thẻ <code>span</code> là con trực tiếp của div <code>.parent-a</code>.
+            </td>
+            <td class="target-zone">
+                <div class="parent-a">
+                    <span>Đích (Direct Child)</span>
+                    <div><span>Không phải đích (Grandchild)</span></div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 10: Nth-Child</strong><br>
+                Click vào mục thứ 3 trong danh sách (Item 3).
+            </td>
+            <td class="target-zone">
+                <ul id="list-items">
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3 (Target)</li>
+                    <li>Item 4</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 11: Sibling (Anh em)</strong><br>
+                Tìm label "Họ tên", sau đó tìm ô input nằm ngay sau nó.
+            </td>
+            <td class="target-zone">
+                <label for="sibling-inp">Họ tên:</label>
+                <input id="sibling-inp" type="text">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 12: Checkbox</strong><br>
+                Check vào ô "Đồng ý điều khoản".
+            </td>
+            <td class="target-zone">
+                <label><input type="checkbox" id="chk-term"> Đồng ý điều khoản</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 13: Radio Group</strong><br>
+                Chọn "Thanh toán khi nhận hàng".
+            </td>
+            <td class="target-zone">
+                <label><input type="radio" name="payment" value="visa"> Visa</label><br>
+                <label><input type="radio" name="payment" value="cod"> Thanh toán khi nhận hàng</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 14: Select Option</strong><br>
+                Chọn "Đà Nẵng" trong dropdown.
+            </td>
+            <td class="target-zone">
+                <select id="city-select">
+                    <option value="hn">Hà Nội</option>
+                    <option value="dn">Đà Nẵng</option>
+                    <option value="hcm">Hồ Chí Minh</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-med">Medium</span><br>
+                <strong>Bài 15: File Upload</strong><br>
+                Upload một file ảnh vào ô này.
+            </td>
+            <td class="target-zone">
+                <input type="file" id="file-upload-input">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-hard">Hard</span><br>
+                <strong>Bài 16: Dynamic ID</strong><br>
+                Tìm ô input có ID thay đổi liên tục. (Gợi ý: Dùng Class hoặc cha con).
+            </td>
+            <td class="target-zone">
+                <input type="text" class="dynamic-inp" placeholder="ID của tôi thay đổi mỗi lần F5">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-hard">Hard</span><br>
+                <strong>Bài 17: Shadow DOM</strong><br>
+                Nhập text vào ô input nằm trong Shadow Root.
+            </td>
+            <td class="target-zone">
+                <div id="shadow-host"></div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-hard">Hard</span><br>
+                <strong>Bài 18: iFrame</strong><br>
+                Click nút "Click Me" nằm trong iFrame.
+            </td>
+            <td class="target-zone">
+                <iframe id="iframe-target" style="height:60px; border:1px solid #ccc; width:100%" srcdoc="<body><button id='btn-in-frame' onclick='alert(`Frame Clicked`)'>Click Me</button></body>"></iframe>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-hard">Hard</span><br>
+                <strong>Bài 19: Visibility (Wait)</strong><br>
+                Click "Hiện nút ẩn", đợi nút hiện ra rồi click nó.
+            </td>
+            <td class="target-zone">
+                <button onclick="setTimeout(()=>{document.getElementById('hidden-btn').style.display='inline-block'}, 3000)">Hiện nút ẩn (3s)</button>
+                <button id="hidden-btn" class="hidden" onclick="alert('Success')">Nút Bí Mật</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-hard">Hard</span><br>
+                <strong>Bài 20: Table Cell</strong><br>
+                Lấy giá trị "Email" của người có tên "Bob".
+            </td>
+            <td class="target-zone">
+                <table border="1" width="100%">
+                    <tr><th>Name</th><th>Email</th></tr>
+                    <tr><td>Alice</td><td>alice@example.com</td></tr>
+                    <tr><td>Bob</td><td>bob@example.com</td></tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <span class="badge bg-hard">Hard</span><br>
+                <strong>Bài 21: Mouse Hover</strong><br>
+                Hover vào text để hiện Tooltip.
+            </td>
+            <td class="target-zone">
+                <span title
