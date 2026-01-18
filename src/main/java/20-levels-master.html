@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Levels Playwright Challenge</title>
+    <style>
+        :root { --primary: #2563eb; --success: #16a34a; --bg: #f8fafc; --border: #e2e8f0; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 40px; color: #334155; }
+        .container { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
+        h1 { text-align: center; color: #1e293b; margin-bottom: 40px; }
+
+        .level { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 20px; position: relative; overflow: hidden; }
+        .level h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        .level-tag { position: absolute; top: 0; right: 0; background: var(--primary); color: white; padding: 5px 10px; font-size: 0.8rem; border-bottom-left-radius: 8px; }
+
+        input, select, textarea { padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; margin: 5px 0; width: 100%; max-width: 300px; display: block; }
+        button { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        button:hover { opacity: 0.9; }
+        .result { font-weight: bold; color: var(--success); font-size: 0.9rem; margin-top: 5px; min-height: 20px; }
+
+        /* Utility specific styles */
+        .hidden { display: none; }
+        .flex-row { display: flex; gap: 10px; align-items: center; }
+
+        /* Drag Drop */
+        .box { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; }
+        #drag-source { background: #fca5a5; cursor: grab; }
+        #drop-target { border: 2px dashed #333; background: #f1f5f9; }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #e2e8f0; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏆 20 CẤP ĐỘ LUYỆN PLAYWRIGHT</h1>
+
+    <div class="level"> <div class="level-tag">Lvl 1</div>
+        <h3>1. Input by ID (Dễ nhất)</h3>
+        <input type="text" id="input-lvl1" placeholder="Nhập vào đây...">
+        <button onclick="checkLvl(1)">Submit</button>
+        <div id="msg-lvl1" class="result"></div>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 2</div>
+        <h3>2. Input by Class & Name</h3>
+        <input type="text" class="input-class-lvl2" name="name-lvl2" placeholder="Tìm bằng class hoặc name">
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 3</div>
+        <h3>3. Checkbox & Radio</h3>
+        <div class="flex-row">
+            <label><input type="checkbox" id="chk-lvl3"> I accept</label>
+            <label><input type="radio" name="gender" value="male"> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+        </div>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 4</div>
+        <h3>4. Dropdown (Select Option)</h3>
+        <select id="select-lvl4">
+            <option value="vn">Vietnam</option>
+            <option value="us">USA</option>
+            <option value="jp">Japan</option>
+        </select>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 5</div>
+        <h3>5. Locator by Text (Tìm bằng chữ)</h3>
+        <button onclick="document.getElementById('msg-lvl5').innerText='Pass!'">Click me please</button>
+        <button onclick="alert('Sai rồi!')">Don't click</button>
+        <div id="msg-lvl5" class="result"></div>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 6</div>
+        <h3>6. Data-TestId (Best Practice)</h3>
+        <input type="text" data-testid="custom-input-lvl6" placeholder="Dùng getByTestId...">
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 7</div>
+        <h3>7. Input Types (Date & Color)</h3>
+        <input type="date" id="date-lvl7">
+        <input type="color" id="color-lvl7">
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 8</div>
+        <h3>8. Multiselect (Chọn nhiều dòng)</h3>
+        <select id="multi-lvl8" multiple style="height: 80px;">
+            <option value="apple">Apple</option>
+            <option value="banana">Banana</option>
+            <option value="cherry">Cherry</option>
+        </select>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 9</div>
+        <h3>9. CSS Selector: Parent > Child</h3>
+        <div class="parent-box">
+            <span>Đừng chọn tôi</span>
+            <span class="target-child">Chọn tôi đi (Child)</span>
+        </div>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 10</div>
+        <h3>10. Input Disabled/Readonly (Check state)</h3>
+        <input type="text" id="disabled-input" disabled value="Không thể nhập">
+        <input type="text" id="readonly-input" readonly value="Chỉ đọc">
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 11</div>
+        <h3>11. Mouse Hover (Rê chuột)</h3>
+        <span onmouseover="document.getElementById('hover-msg').innerText='Hovered!'" style="border:1px dashed blue; padding:5px;">Rê chuột vào đây</span>
+        <span id="hover-msg" class="result"></span>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 12</div>
+        <h3>12. Drag & Drop (Kéo thả)</h3>
+        <div class="flex-row">
+            <div id="drag-source" draggable="true" ondragstart="event.dataTransfer.setData('text', event.target.id)" class="box">KÉO</div>
+            <div id="drop-target" ondrop="event.preventDefault(); var d=event.dataTransfer.getData('text'); event.target.appendChild(document.getElementById(d)); document.getElementById('drag-res').innerText='Done!'" ondragover="event.preventDefault()" class="box">THẢ</div>
+        </div>
+        <div id="drag-res" class="result"></div>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 13</div>
+        <h3>13. Keyboard Keys (Nhấn phím)</h3>
+        <input type="text" id="key-lvl13" placeholder="Nhấn Enter..." onkeydown="if(event.key==='Enter') document.getElementById('key-res').innerText='Enter Pressed!'">
+        <div id="key-res" class="result"></div>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 14</div>
+        <h3>14. File Upload (Tải file)</h3>
+        <input type="file" id="upload-lvl14">
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 15</div>
+        <h3>15. Auto-Wait (Nút xuất hiện chậm)</h3>
+        <button onclick="triggerWait()" class="secondary">Load (3s)</button>
+        <button id="btn-lvl15" class="hidden" onclick="document.getElementById('wait-res').innerText='Found!'">Target</button>
+        <div id="wait-res" class="result"></div>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 16</div>
+        <h3>16. Javascript Alert & Confirm</h3>
+        <button onclick="alert('Hello World')">Show Alert</button>
+        <button onclick="confirm('Are you sure?')">Show Confirm</button>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 17</div>
+        <h3>17. Dynamic ID (ID đổi liên tục)</h3>
+        <input type="text" class="dynamic-id" placeholder="ID của tôi là ngẫu nhiên">
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 18</div>
+        <h3>18. Web Table Filtering</h3>
+        <table id="table-lvl18">
+            <thead><tr><th>Name</th><th>Role</th><th>Action</th></tr></thead>
+            <tbody>
+            <tr><td>Alice</td><td>Manager</td><td><button>Edit</button></td></tr>
+            <tr><td>Bob</td><td>Staff</td><td><button>Edit</button></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 19</div>
+        <h3>19. Shadow DOM (Input bị ẩn sâu)</h3>
+        <div id="shadow-host-lvl19"></div>
+    </div>
+
+    <div class="level"> <div class="level-tag">Lvl 20</div>
+        <h3>20. iFrame (Trang trong trang)</h3>
+        <iframe id="iframe-lvl20" srcdoc="<body><button id='btn-iframe'>Click Inside iFrame</button></body>" style="height: 60px; border:1px solid #ccc; width:100%"></iframe>
+    </div>
+
+</div>
+
+<script>
+    function checkLvl(lvl) { document.getElementById('msg-lvl'+lvl).innerText = 'Level '+lvl+' Passed!'; }
+
+    // Logic Level 15
+    function triggerWait() {
+        setTimeout(() => { document.getElementById('btn-lvl15').style.display = 'inline-block'; }, 3000);
+    }
+
+    // Logic Level 17
+    document.querySelector('.dynamic-id').id = 'id_' + Math.random().toString(36).substr(2, 5);
+
+    // Logic Level 19
+    const shadowHost = document.getElementById('shadow-host-lvl19');
+    const shadowRoot = shadowHost.attachShadow({mode: 'open'});
+    shadowRoot.innerHTML = `<input id="shadow-input" placeholder="Shadow Input Here"><br>`;
+</script>
+
+</body>
+</html>
